@@ -7,8 +7,6 @@ const User =  require("../models/User")
 const router = Router()
 
 
-console.log(process.env.jwt_Secret)
-
 // /api/auth/register
 router.post(
   '/register',
