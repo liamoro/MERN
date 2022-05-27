@@ -7,6 +7,9 @@ const User =  require("../models/User")
 const router = Router()
 
 
+console.log("start auth")
+
+
 // /api/auth/register
 router.post(
   '/register',
@@ -15,6 +18,7 @@ router.post(
     check('password', 'Password is incorrect. Length must be more then 6').isLength({min: 6})
   ],
   async (req, res, next) => {
+    console.log("server register")
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -23,11 +27,11 @@ router.post(
       })
     }
     try {
-      const req = {mail, password} = req.body
+      const {email, password} = req.body
 
       const candidate = await User.findOne({email})
       if(candidate) {
-        res.status(500).json({message: "User already exist"})
+        return res.status(400).json({message: "User already exist"})
       }
 
       const hashedPassword = await bcrypt.hash(password, 12)
@@ -40,9 +44,8 @@ router.post(
       res.status(201).json({message: "User was created"})
 
 
-      console.log("Hello from register")
     } catch (err) {
-      res.status(500).json({message: "Something go wrong!! Try again!"})
+      res.status(500).json({message: err.message})
     
     }
     next()
@@ -55,6 +58,7 @@ router.post(
     check('password', 'Input correct password. It length must be more then 6').exists().isLength({min: 6})
   ],
   async (req, res, next) => {
+    console.log("server login")
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({
@@ -62,16 +66,18 @@ router.post(
         message: "Incorrect login data"
       })
     }
+    console.log("Validation OK")
     try {
-      const req = {mail, password} = req.body
+      const {email, password} = req.body
 
       const user = await User.findOne({email})
       if(!user) {
-        res.status(400).json({message: "There is no such user"})
+        return res.status(400).json({message: "There is no such user"})
       }
 
       // TODO: add salt to bd 
       const isPswdCorrect = bcrypt.compare(password, user.password)
+      console.log(isPswdCorrect)
 
       if (!isPswdCorrect) {
         res.status(400).json("Incorrect password. Please, try it again")
@@ -86,10 +92,12 @@ router.post(
       res.json({token, userId: user._id})
       
     } catch (err) {
-      res.status(500).json({message: "Something go wrong!! Try again!"})
-    
+      // res.status(500).json({message: "Uncorrect data"})
+      res.status(500).json({message: err.message})
     }
     next()
 })
+console.log("endauth")
+
 
 module.exports = router

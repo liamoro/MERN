@@ -6,38 +6,33 @@ import DetailPage from './pages/DetailPage';
 import LinksPage from './pages/LinksPage';
 
 
-// window.React1 = require('react');
 
-require('react-dom');
-window.React2 = require('react');
-console.log(window.React1 === window.React2);
-console.log(window.React2 === window.React3);
-console.log(window.React1 === window.React3);
+// require('react-dom');
+// window.React2 = require('react');
+// console.log(window.React1 === window.React2);
+// console.log(window.React2 === window.React3);
+// console.log(window.React1 === window.React3);
 
 
 const useRoutes = isAuthenticated => {
   if (isAuthenticated) {
     return (
       <Routes>
-        <Route path='/links' exact>
-           <LinksPage/>
+        <Route path='/links' exact element={<LinksPage/>}>
         </Route>
-        <Route path='/create' exact>
-          <DetailPage/>
+        <Route path='/create' exact element={<CreatePage />}>
         </Route>
-        <Route path='/detail/:id' exact>
-          <CreatePage />
+        <Route path='/detail/:id' exact element={<DetailPage />}>
         </Route>
-        <Navigate to="/create"/>
+        <Route path="/*" element={<Navigate replace to="/create" />} />
       </Routes>
     )
   }
   return (
     <Routes>
-      <Route path='/' exact>
-        <AuthPage />
+      <Route path='/auth' exact element={<AuthPage />}>
       </Route>
-      <Navigate to='/'/>
+      <Route path="/*" element={<Navigate replace to="/auth" />} />
     </Routes>
   )
 }
