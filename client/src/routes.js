@@ -3,15 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import AuthPage from './pages/AuthPage';
 import CreatePage from './pages/CreatePage';
 import DetailPage from './pages/DetailPage';
-import LinksPage from './pages/LinksPage';
-
-
-
-// require('react-dom');
-// window.React2 = require('react');
-// console.log(window.React1 === window.React2);
-// console.log(window.React2 === window.React3);
-// console.log(window.React1 === window.React3);
+import { LinksPage } from './pages/LinksPage';
 
 
 const useRoutes = isAuthenticated => {

@@ -1,0 +1,5 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/lia/Documents/WEB_BANK/MERN'
+docker run -dp 3000:3000 1b8b7e2c84d4
+make: Leaving directory `/Users/lia/Documents/WEB_BANK/MERN'
+ 

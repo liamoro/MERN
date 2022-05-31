@@ -66,7 +66,6 @@ router.post(
         message: "Incorrect login data"
       })
     }
-    console.log("Validation OK")
     try {
       const {email, password} = req.body
 
@@ -77,7 +76,6 @@ router.post(
 
       // TODO: add salt to bd 
       const isPswdCorrect = bcrypt.compare(password, user.password)
-      console.log(isPswdCorrect)
 
       if (!isPswdCorrect) {
         res.status(400).json("Incorrect password. Please, try it again")

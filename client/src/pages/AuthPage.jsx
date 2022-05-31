@@ -25,7 +25,7 @@ const AuthPage = () => {
   const registerHandler = async () => {
     try {
       const data = await request('/api/auth/register', 'POST', {...form})
-      console.log("Data", data)
+      // console.log("Data", data)
       message(data.message)
     } catch (error) {}
   }
@@ -52,6 +52,7 @@ const AuthPage = () => {
                 id='email'
                 type='text'
                 name='email'
+                value={form.email}
                 className='black-text'
                 onChange={formHandler}
               />
@@ -65,6 +66,7 @@ const AuthPage = () => {
                 id='password'
                 type='password'
                 name='password'
+                value={form.password}
                 className='black-text'
                 onChange={formHandler}
               />
