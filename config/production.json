@@ -1,0 +1,4 @@
+jwt_Secret=jdsakfdkfksadfnkjsdnfka
+PORT=3001
+MONGO_DB_URI="mongodb+srv://root:root@cluster0.2qzzc.mongodb.net/MERN_DB?retryWrites=true&w=majority"
+baseUrl='http://localhost:3001'
